@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="牛客刷题理解知识点抽象类和接口的区别：​    抽象类中可以有构造，只不过不能new ​    接口中可以有变量，但是无论怎么写都是public，static final的 ​    抽象类中可以有静态方法，接口中也可以有静态方法 另外： ​    接口中可以有非抽象的方法，比如default方法（java1.8） ​    接口中可以有带方法体的方法（java1.8 ​    接口中的方法默认是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/01/10/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98%E7%90%86%E8%A7%A3%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="牛客刷题理解知识点抽象类和接口的区别：​    抽象类中可以有构造，只不过不能new ​    接口中可以有变量，但是无论怎么写都是public，static final的 ​    抽象类中可以有静态方法，接口中也可以有静态方法 另外： ​    接口中可以有非抽象的方法，比如default方法（java1.8） ​    接口中可以有带方法体的方法（java1.8 ​    接口中的方法默认是">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-10T07:45:32.343Z">
+<meta property="article:modified_time" content="2022-11-17T14:34:14.705Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-牛客刷题理解知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/01/10/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98%E7%90%86%E8%A7%A3%E7%9F%A5%E8%AF%86%E7%82%B9/" class="article-date">
+  <time datetime="2023-01-10T07:45:32.343Z" itemprop="datePublished">2023-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="牛客刷题理解知识点"><a href="#牛客刷题理解知识点" class="headerlink" title="牛客刷题理解知识点"></a>牛客刷题理解知识点</h1><h2 id="抽象类和接口的区别："><a href="#抽象类和接口的区别：" class="headerlink" title="抽象类和接口的区别："></a>抽象类和接口的区别：</h2><p>​    抽象类中可以有构造，只不过不能new</p>
+<p>​    接口中可以有变量，但是无论怎么写都是public，static final的</p>
+<p>​    抽象类中可以有静态方法，接口中也可以有静态方法</p>
+<p>另外：</p>
+<p>​    接口中可以有非抽象的方法，比如default方法（java1.8）</p>
+<p>​    接口中可以有带方法体的方法（java1.8</p>
+<p>​    接口中的方法默认是public的</p>
+<h2 id="Object类中的方法"><a href="#Object类中的方法" class="headerlink" title="Object类中的方法"></a>Object类中的方法</h2><p>方法，</p>
+<p>方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>clone()</td>
+<td>创建并返回此对象的一个副本</td>
+</tr>
+<tr>
+<td>finalize()</td>
+<td>当垃圾回收器确定不存在对该对象的引用时，垃圾回收器会调用这个方法，来回收资源</td>
+</tr>
+<tr>
+<td>getClass()</td>
+<td>返回这个class的运行时类</td>
+</tr>
+<tr>
+<td>hashCode()</td>
+<td>返回该对象的哈希码值</td>
+</tr>
+<tr>
+<td>notify()</td>
+<td>唤醒在这个对象监视器上等待的某个线程</td>
+</tr>
+<tr>
+<td>notifyAll()</td>
+<td>唤醒在这个对象监视器上等待的所有线程</td>
+</tr>
+<tr>
+<td>toString()</td>
+<td>返回字符串</td>
+</tr>
+<tr>
+<td>wait()方法</td>
+<td>导致线程等待(可以通过notify()唤醒)，也可以指定具体时间，在一定时间后或者被notify()</td>
+</tr>
+</tbody></table>
+<h2 id="HashMap和HashTable的知识点"><a href="#HashMap和HashTable的知识点" class="headerlink" title="HashMap和HashTable的知识点"></a>HashMap和HashTable的知识点</h2><p>1.HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。HashMap的底层结构是一个数组，数组中的每一项都是一条链表。(这是以前的实现，当链表长度过长时就采用红黑树来实现)</p>
+<p>2.HashMap的实例有两个参数影响性能—-初始容量，装填因子</p>
+<p>3.HashMap实现不同步，线程不安全，HashTable线程安全</p>
+<p>4.HashMap的键值对时存放在Entry中的</p>
+<p>5.HashMap可以存放null键和null值，通过HashCode和equals方法来解决哈希冲突</p>
+<p>6.HashMap初始容量为16，每次增加为原来的两倍</p>
+<p>7.HashTable初始容量为11，每次增加为原来的两倍+1</p>
+<p>8.解决Hash冲突的方法有三种：<strong>定址法，拉链法，再散列法</strong>，hashMap时采用拉链法来解决hash冲突的。</p>
+<p>9.开放地址发指从冲突的位置往下找，直到找到一个空的位置插进去。</p>
+<p>10.HashMap重新计算hash值，HashTable直接使用对象本事的HashCode</p>
+<h2 id="放在静态代码块中的代码什么时候执行"><a href="#放在静态代码块中的代码什么时候执行" class="headerlink" title="放在静态代码块中的代码什么时候执行"></a>放在静态代码块中的代码什么时候执行</h2><p>每次被加载到jvm中的时候，也就是被刺被使用或者调用的时候。</p>
+<h2 id="静态方法不能访问成员变量。"><a href="#静态方法不能访问成员变量。" class="headerlink" title="静态方法不能访问成员变量。"></a>静态方法不能访问成员变量。</h2><p>类方法（就是静态方法，可以被通过类名直接调用故称为类方法）不能访问成员变量。</p>
+<h2 id="中文编码问题"><a href="#中文编码问题" class="headerlink" title="中文编码问题"></a>中文编码问题</h2><p>char b = ‘中’ 类似这种命令，需要注意的时，在ISO8859-1编码中，一个中文占一个字节</p>
+<p>在GBK或者GBK2312中，一个中文占两个字节</p>
+<p>在UTF-8中，一个中文占三个字节</p>
+<h2 id="流控制问题"><a href="#流控制问题" class="headerlink" title="流控制问题"></a>流控制问题</h2><p>这个地方是我很薄弱的地方，需要去看看相关知识进行补充</p>
+<p>inputStream,DataOutPurStream,FileInputStream等等</p>
+<h2 id="Math的几个典型方法"><a href="#Math的几个典型方法" class="headerlink" title="Math的几个典型方法"></a>Math的几个典型方法</h2><p>Math.floor()    求小于参数的最大整数</p>
+<p>Math.ceil()    求大于参数的最小整数</p>
+<p>Math.round() 求对小数进行四舍五入后的结果。</p>
+<h2 id="对Yield的理解"><a href="#对Yield的理解" class="headerlink" title="对Yield的理解"></a>对Yield的理解</h2><p>yield属于高风亮节的命令，即他主动放弃cpu资源，让和他相同优先级或者更高的人去使用。</p>
+<p>但是如果没有相同优先级或者更高优先级的要处理，则又会轮到他来执行。</p>
+<h2 id="流的分类："><a href="#流的分类：" class="headerlink" title="流的分类："></a>流的分类：</h2><p> 按照流是否直接参与特定的地方，如磁盘，内存设备等</p>
+<p>可以将流分为节点流和处理六两种</p>
+<h3 id="节点流"><a href="#节点流" class="headerlink" title="节点流:"></a>节点流:</h3><p>可以从或向一个地方读写数据，如FileReader</p>
+<p>常见的节点流有：</p>
+<h4 id="文件流："><a href="#文件流：" class="headerlink" title="文件流："></a>文件流：</h4><p>​        FileReader,FileWriter,FIleInputStream,FileOutputStream</p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>​        StringReader,StringWriter</p>
+<h4 id="数组流"><a href="#数组流" class="headerlink" title="数组流"></a>数组流</h4><p>​        ByteArrayInputReader,ByteArratOutputWriter,CharArrayInputReader,CharArratOutputWriter</p>
+<p>​        对数组进行处理的节点流，对应的不再是文件，二十内存中的一个数组</p>
+<h4 id="管道："><a href="#管道：" class="headerlink" title="管道："></a>管道：</h4><p>​        PipedInputStream,PipedOutputStream</p>
+<p>​        对管道进行处理</p>
+<h3 id="处理流："><a href="#处理流：" class="headerlink" title="处理流："></a>处理流：</h3><p>对一个已经存在的流的链接和封装，通过所封装的流的功能调用实现数据读写。如BufferReader，处理流的搞糟方法总是要带一个其他的流对象作为参数。一个流对象经过其他流的多次包装，成为流的链接</p>
+<p>常见的处理流有</p>
+<h4 id="缓冲流："><a href="#缓冲流：" class="headerlink" title="缓冲流："></a>缓冲流：</h4><p>​    BufferedInputStream,BufferedOutputStream</p>
+<p>​    BufferedInputReader,BufferedOutputWriter</p>
+<p>​    增加缓冲功能，避免频散读写硬盘</p>
+<h4 id="转换流："><a href="#转换流：" class="headerlink" title="转换流："></a>转换流：</h4><p>​    InputStreamReader,OutputStreamReader</p>
+<p>​    实现字节流和字符流的转换</p>
+<h4 id="数据流："><a href="#数据流：" class="headerlink" title="数据流："></a>数据流：</h4><p>​    DataInputStream,DataOutputStream</p>
+<p>​    提供将基础数据类型写入到文件中，或者读取出来。</p>
+<h3 id="流的关闭顺序"><a href="#流的关闭顺序" class="headerlink" title="流的关闭顺序:"></a>流的关闭顺序:</h3><p>​    一般情况下，时先打开的后关闭</p>
+<p>​    另一种情况，看依赖关系，没有依赖的先关闭</p>
+<p>​    另外， 可以只关闭处理流，不用关闭节点流，处理六关闭的时候，</p>
+<p>​    会调用处理的节点流的关闭方法。</p>
+<p>​    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/01/10/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98%E7%90%86%E8%A7%A3%E7%9F%A5%E8%AF%86%E7%82%B9/" data-id="clcpxkdwz0000vsizcmkdgnuv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/11/23/Java8%E6%96%B0%E7%89%B9%E6%80%A7/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java8新特性</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/01/10/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98%E7%90%86%E8%A7%A3%E7%9F%A5%E8%AF%86%E7%82%B9/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/23/Java8%E6%96%B0%E7%89%B9%E6%80%A7/">Java8新特性</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/15/%E5%9C%A8%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD%EF%BC%9A/">在博客上添加功能</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/15/%E5%9C%A8gitee%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%9B%BE%E5%BA%8A/">在gitee上搭建图床</a>
+          </li>
+        
+          <li>
+            <a href="/2022/11/15/%E5%9B%BE%E8%A7%A3Http%E7%AC%94%E8%AE%B0/">图解Http笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

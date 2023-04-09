@@ -156,6 +156,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux配置按章Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/">Linux配置按章Nginx</a>
+    </h1>
+  
+
+        
+        <a href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/" class="archive-article-date">
+  	<time datetime="2022-11-15T01:10:02.424Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="Linux配置按章Nginx"><a href="#Linux配置按章Nginx" class="headerlink" title="Linux配置按章Nginx"></a>Linux配置按章Nginx</h1><h3 id="1-使用yum下载相关依赖包"><a href="#1-使用yum下载相关依赖包" class="headerlink" title="1.使用yum下载相关依赖包"></a>1.使用yum下载相关依赖包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//一键安装上面四个依赖</span><br><span class="line">yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.13.7.tar.gz</span><br><span class="line">tar -xvf nginx-1.13.7.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//进入目录</span><br><span class="line">cd nginx-1.13.7</span><br><span class="line">//执行命令 考虑到后续安装ssl证书 添加两个模块</span><br><span class="line">./configure --with-http_stub_status_module --with-http_ssl_module</span><br><span class="line">//执行make命令</span><br><span class="line">make</span><br><span class="line">//执行make install命令</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-启动Nginx服务"><a href="#4-启动Nginx服务" class="headerlink" title="4.启动Nginx服务"></a>4.启动Nginx服务</h3><p>默认安装的nginx是在/usr/local下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-修改配置文件，设置端口为8089（默认为80，和Apache的冲突）"><a href="#5-修改配置文件，设置端口为8089（默认为80，和Apache的冲突）" class="headerlink" title="5.修改配置文件，设置端口为8089（默认为80，和Apache的冲突）"></a>5.修改配置文件，设置端口为8089（默认为80，和Apache的冲突）</h3><h3 id="6-重启"><a href="#6-重启" class="headerlink" title="6.重启"></a>6.重启</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-打开防火墙端口"><a href="#7-打开防火墙端口" class="headerlink" title="7.打开防火墙端口"></a>7.打开防火墙端口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看已经开放的端口</span><br><span class="line">firewall-cmd --list-ports</span><br><span class="line">//增加端口</span><br><span class="line">firewall-cmd --zone=public --add-port=8089/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux安装mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

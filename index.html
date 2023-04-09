@@ -156,6 +156,132 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Sql刷题笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Sql刷题笔记"><a href="#Sql刷题笔记" class="headerlink" title="Sql刷题笔记"></a>Sql刷题笔记</h1><h2 id="1-如何通过计数分组解决问题："><a href="#1-如何通过计数分组解决问题：" class="headerlink" title="1.如何通过计数分组解决问题："></a>1.如何通过计数分组解决问题：</h2><p>例如学生和班级的对应表，找出超过一定数目的学生的班级</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> class</span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line">	<span class="keyword">select</span> class <span class="built_in">count</span>(<span class="keyword">DISTINCT</span> student) <span class="keyword">AS</span> num</span><br><span class="line">	<span class="keyword">from</span> course</span><br><span class="line">	<span class="keyword">group</span> <span class="keyword">by</span> class) <span class="keyword">AS</span> temp_table</span><br><span class="line"><span class="keyword">where</span> </span><br><span class="line">	num<span class="operator">&gt;=</span><span class="number">5</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>总结：这一段代码要注意的地方是</p>
+<ol>
+<li>进行子查询的时候必须使用，AS进行命名。即使后面没有引用这个名字</li>
+<li>使用count的时候，利用AS赋值了一个列名，方便后续用来判断。</li>
+</ol>
+<h2 id="2-对于判断，要取到null值的情景"><a href="#2-对于判断，要取到null值的情景" class="headerlink" title="2.对于判断，要取到null值的情景"></a>2.对于判断，要取到null值的情景</h2><p>一来，可以正向直接取null值和相应的条件，相或即可</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#等于,只有一个等于号</span><br><span class="line"><span class="operator">=</span></span><br><span class="line"># 不等于</span><br><span class="line"><span class="operator">!=</span>	<span class="keyword">or</span> <span class="operator">&lt;&gt;</span> 	#均可以</span><br><span class="line">#对于<span class="keyword">null</span>值的判断，必须使用<span class="keyword">is</span></span><br><span class="line"><span class="keyword">is</span> <span class="keyword">NUll</span></span><br></pre></td></tr></table></figure>
+
+<p>二来，可以通过取非条件，然后子查询排除，速度更快，更安全。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name <span class="keyword">from</span> customer</span><br><span class="line"><span class="keyword">where</span> id <span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(<span class="keyword">select</span> if <span class="keyword">from</span> customer <span class="keyword">where</span> refree_id <span class="operator">=</span> <span class="number">2</span>)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-多表查询"><a href="#3-多表查询" class="headerlink" title="3.多表查询"></a>3.多表查询</h2><p>对于两个表的查询，例如c表的名字，没有出现在o表中</p>
+<p>那么可以使用子查询，即查询出o表的id，在使用not in</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> Name <span class="keyword">AS</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers</span><br><span class="line"><span class="keyword">where</span> Customers.id <span class="keyword">not</span> <span class="keyword">in</span></span><br><span class="line">(<span class="keyword">select</span> CustomerId <span class="keyword">from</span> Orders)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用左连接，进行条件相同的链接后，找到o表中元素为null的值，即可</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> c.name <span class="keyword">as</span> Customers</span><br><span class="line"><span class="keyword">from</span> Customers <span class="keyword">as</span> c</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> Orders <span class="keyword">as</span> o <span class="keyword">on</span> c.id <span class="operator">=</span> o.CustomerId</span><br><span class="line"><span class="keyword">where</span> o.id <span class="keyword">is</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-条件查询和模糊判断"><a href="#4-条件查询和模糊判断" class="headerlink" title="4.条件查询和模糊判断"></a>4.条件查询和模糊判断</h2><p><strong>要注意的是，sql中if结构，要传入三个参数，条件，和两个结果</strong></p>
+<p>例如查找一些m开头，的并经过判断得到新数据的</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> employee_id,</span><br><span class="line">if(</span><br><span class="line">    name <span class="keyword">not</span> <span class="keyword">like</span> <span class="string">&#x27;M%&#x27;</span> <span class="keyword">and</span> employee_id <span class="operator">%</span> <span class="number">2</span> <span class="operator">=</span> <span class="number">1</span>,</span><br><span class="line">    salary,</span><br><span class="line">    <span class="number">0</span></span><br><span class="line">) <span class="keyword">as</span> bonus</span><br><span class="line"><span class="keyword">from</span> Employees</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> employee_id;</span><br></pre></td></tr></table></figure>
+
+<p>也可以进阶使用mod方法替换%，用LEFT函数替换like</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee_id,</span><br><span class="line">IF(<span class="built_in">MOD</span>(employee_id,<span class="number">2</span>)<span class="operator">!=</span><span class="number">0</span> <span class="keyword">AND</span> <span class="keyword">LEFT</span>(name,<span class="number">1</span>)<span class="operator">!=</span><span class="string">&#x27;M&#x27;</span>,salary,<span class="number">0</span>) bonus</span><br><span class="line"><span class="keyword">FROM</span> Employees</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> employee_id</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用case 配合when函数替换if</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    employee_id,</span><br><span class="line">    <span class="keyword">CASE</span> </span><br><span class="line">        <span class="keyword">WHEN</span> <span class="built_in">MOD</span>(employee_id,<span class="number">2</span>)<span class="operator">!=</span><span class="number">0</span> <span class="keyword">AND</span> <span class="keyword">LEFT</span>(name,<span class="number">1</span>)<span class="operator">!=</span><span class="string">&#x27;M&#x27;</span> <span class="keyword">THEN</span> salary</span><br><span class="line">        <span class="keyword">WHEN</span> <span class="built_in">MOD</span>(employee_id,<span class="number">2</span>)<span class="operator">=</span><span class="number">0</span> <span class="keyword">OR</span> <span class="keyword">LEFT</span>(name,<span class="number">1</span>)<span class="operator">=</span><span class="string">&#x27;M&#x27;</span> <span class="keyword">THEN</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">ELSE</span> <span class="number">0</span> <span class="comment">-- 这里ELSE可以省略</span></span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">AS</span> bonus</span><br><span class="line"><span class="keyword">FROM</span> Employees</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> employee_id</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-更新语句配合条件"><a href="#5-更新语句配合条件" class="headerlink" title="5.更新语句配合条件"></a>5.更新语句配合条件</h2><p>配合CASE</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Update</span> salary</span><br><span class="line"><span class="keyword">Set</span> sex <span class="operator">=</span> <span class="keyword">CASE</span> </span><br><span class="line">    <span class="keyword">when</span> sex <span class="operator">=</span> <span class="string">&#x27;f&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;m&#x27;</span></span><br><span class="line">    <span class="keyword">else</span> <span class="string">&#x27;f&#x27;</span></span><br><span class="line">    <span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<p>配合if语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Update</span> salary</span><br><span class="line"><span class="keyword">Set</span> sex <span class="operator">=</span> if(sex <span class="operator">=</span> <span class="string">&#x27;f&#x27;</span>,<span class="string">&#x27;m&#x27;</span>,<span class="string">&#x27;f&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-删除重复语句"><a href="#6-删除重复语句" class="headerlink" title="6.删除重复语句"></a>6.删除重复语句</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Delete</span> p1 <span class="keyword">from</span> Person p1,</span><br><span class="line">	Person p2</span><br><span class="line"><span class="keyword">where</span> p1.Email <span class="operator">=</span> p2.Email <span class="keyword">and</span> p1.id <span class="operator">&gt;</span> p2.id;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-字符串整合和正则表达式"><a href="#7-字符串整合和正则表达式" class="headerlink" title="7.字符串整合和正则表达式"></a>7.字符串整合和正则表达式</h2><p>先使用CONCAT进行字符串整合操作，注意这里的left，right，length方法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">select</span> user_id,CONCAT(<span class="built_in">upper</span>(<span class="keyword">left</span>(name,<span class="number">1</span>))</span><br><span class="line">            ,<span class="built_in">lower</span>(<span class="keyword">right</span>(name,length(name)<span class="number">-1</span>))) <span class="keyword">as</span> name</span><br><span class="line">        <span class="keyword">from</span> users</span><br><span class="line">        <span class="keyword">order</span> <span class="keyword">by</span> user_id</span><br></pre></td></tr></table></figure>
+
+<p>concat的延申，和group配合使用</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Write your MySQL query statement below</span><br><span class="line"><span class="keyword">select</span> sell_date,<span class="built_in">count</span>(<span class="keyword">distinct</span> product) num_sold,</span><br><span class="line">group_concat(<span class="keyword">distinct</span> product <span class="keyword">order</span> <span class="keyword">by</span> product separator <span class="string">&#x27;,&#x27;</span>) products</span><br><span class="line"><span class="keyword">from</span> activities</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> sell_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> sell_date</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-两表元素对比"><a href="#8-两表元素对比" class="headerlink" title="8.两表元素对比"></a>8.两表元素对比</h2><p>例如对两个表，1表有，2没有，或者反过来</p>
+<p>可以使用union all组和两个表所有的id，然后使用group by组和，在进行计数即可</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> employee_id <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">distinct</span> employee_id <span class="keyword">from</span> Employees</span><br><span class="line">    <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">distinct</span> employee_id <span class="keyword">from</span> Salaries</span><br><span class="line">) <span class="keyword">AS</span> t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> employee_id</span><br><span class="line"><span class="keyword">having</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> employee_id <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里的asc是按照排列</strong></p>
+<p>第二种方法，最直观想到的就是，通过左连接，获得1表中的独特数据，在通过右链接获得2表的独特数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> employee_id <span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span> e.employee_id <span class="keyword">from</span> Employees e <span class="keyword">left</span> <span class="keyword">join</span> Salaries s <span class="keyword">on</span> e.employee_id <span class="operator">=</span>  s.employee_id <span class="keyword">where</span> s.salary <span class="keyword">is</span> <span class="keyword">null</span></span><br><span class="line">    <span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line">    <span class="keyword">select</span> s.employee_id <span class="keyword">from</span> Salaries s <span class="keyword">left</span> <span class="keyword">join</span> Employees e <span class="keyword">on</span> e.employee_id <span class="operator">=</span>  s.employee_id <span class="keyword">where</span> e.name <span class="keyword">is</span> <span class="keyword">null</span></span><br><span class="line">) <span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t.employee_id <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
+
+<p>相对逻辑更简单</p>
+<h2 id="9-取得排第几的数据"><a href="#9-取得排第几的数据" class="headerlink" title="9.取得排第几的数据"></a>9.取得排第几的数据</h2><p>例如获取薪资表中排第2的数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">distinct</span> salary <span class="keyword">from</span> Employee</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">1</span> <span class="keyword">OFFSET</span> <span class="number">1</span>)</span><br><span class="line"><span class="keyword">AS</span> SecondHighestSalary</span><br></pre></td></tr></table></figure>
+
+<p>注意，这里的LIMIT表示的是返回几条数据，而OFFSET表示这几条数据的偏移量。</p>
+<p>即从1位置，获取一条数据。初始为0，所以是排第二的数据</p>
+<h2 id="10-表合并和日期操作"><a href="#10-表合并和日期操作" class="headerlink" title="10.表合并和日期操作"></a>10.表合并和日期操作</h2><p>简单的合并表，不需要使用join来链接，直接取两个表即可</p>
+<p>对某些情况下，需要和之前一天的数据做比较的情况，可以使用datediff函数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.id</span><br><span class="line"><span class="keyword">from</span> Weather a, Weather b</span><br><span class="line"><span class="keyword">where</span> a.temperature <span class="operator">&gt;</span> b.temperature <span class="keyword">and</span> datediff(a.recordDate,b.recordDate)<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-表分组后再筛选组和"><a href="#11-表分组后再筛选组和" class="headerlink" title="11.表分组后再筛选组和"></a>11.表分组后再筛选组和</h2><p>这里用的是group by+聚合函数</p>
+<p>很多时候，要查找的数据，是分组过后，并对分组后的数据进行操作的情况</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">另外，当需要分组条件是多个元素的时候，<span class="keyword">group</span> <span class="keyword">by</span>也支持多个元素</span><br><span class="line"></span><br><span class="line">```<span class="keyword">sql</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> m1,m2</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-根据，根据条件不同选择不同的值"><a href="#12-根据，根据条件不同选择不同的值" class="headerlink" title="12.根据，根据条件不同选择不同的值"></a>12.根据，根据条件不同选择不同的值</h2><p>例如，根据operation的不同，but或者sell，选择price或者-price</p>
+<p>这里用的是case</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> stock_name,</span><br><span class="line"><span class="built_in">sum</span>(</span><br><span class="line">    <span class="keyword">case</span></span><br><span class="line">    <span class="keyword">when</span> operation <span class="operator">=</span> <span class="string">&#x27;buy&#x27;</span> <span class="keyword">then</span> <span class="operator">-</span>price</span><br><span class="line">    <span class="keyword">when</span> operation <span class="operator">=</span> <span class="string">&#x27;sell&#x27;</span> <span class="keyword">then</span> price</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">)<span class="keyword">as</span> capital_gain_loss</span><br><span class="line"><span class="keyword">from</span> Stocks </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> stock_name</span><br></pre></td></tr></table></figure>
+
+<p>尝试修改为if结构</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> stock_name,<span class="built_in">sum</span>(price) capital_gain_loss </span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line">    <span class="keyword">select</span> stock_name,if(operation <span class="operator">=</span> <span class="string">&#x27;buy&#x27;</span>,<span class="operator">-</span>price,price) price</span><br><span class="line">    <span class="keyword">from</span> stocks</span><br><span class="line">)<span class="keyword">as</span> t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> stock_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="13-对空值进行处理"><a href="#13-对空值进行处理" class="headerlink" title="13.对空值进行处理"></a>13.对空值进行处理</h2><p>if的变种，ifnull</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifnull(distance,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/04/09/Sql%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-JAVA虚拟机笔记 - 副本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1003,82 +1129,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/11/15/Tcp%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux配置按章Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/">Linux配置按章Nginx</a>
-    </h1>
-  
-
-        
-        <a href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/" class="archive-article-date">
-  	<time datetime="2022-11-15T01:10:02.424Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="Linux配置按章Nginx"><a href="#Linux配置按章Nginx" class="headerlink" title="Linux配置按章Nginx"></a>Linux配置按章Nginx</h1><h3 id="1-使用yum下载相关依赖包"><a href="#1-使用yum下载相关依赖包" class="headerlink" title="1.使用yum下载相关依赖包"></a>1.使用yum下载相关依赖包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//一键安装上面四个依赖</span><br><span class="line">yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.13.7.tar.gz</span><br><span class="line">tar -xvf nginx-1.13.7.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//进入目录</span><br><span class="line">cd nginx-1.13.7</span><br><span class="line">//执行命令 考虑到后续安装ssl证书 添加两个模块</span><br><span class="line">./configure --with-http_stub_status_module --with-http_ssl_module</span><br><span class="line">//执行make命令</span><br><span class="line">make</span><br><span class="line">//执行make install命令</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-启动Nginx服务"><a href="#4-启动Nginx服务" class="headerlink" title="4.启动Nginx服务"></a>4.启动Nginx服务</h3><p>默认安装的nginx是在/usr/local下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-修改配置文件，设置端口为8089（默认为80，和Apache的冲突）"><a href="#5-修改配置文件，设置端口为8089（默认为80，和Apache的冲突）" class="headerlink" title="5.修改配置文件，设置端口为8089（默认为80，和Apache的冲突）"></a>5.修改配置文件，设置端口为8089（默认为80，和Apache的冲突）</h3><h3 id="6-重启"><a href="#6-重启" class="headerlink" title="6.重启"></a>6.重启</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-打开防火墙端口"><a href="#7-打开防火墙端口" class="headerlink" title="7.打开防火墙端口"></a>7.打开防火墙端口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看已经开放的端口</span><br><span class="line">firewall-cmd --list-ports</span><br><span class="line">//增加端口</span><br><span class="line">firewall-cmd --zone=public --add-port=8089/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/">展开全文 >></a>
         </p>
       
 

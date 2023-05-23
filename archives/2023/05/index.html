@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>Archives: 2023/5 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:url" content="http://example.com/archives/2023/05/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
@@ -156,493 +156,41 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Tcp重传机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/15/Tcp%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6/">Tcp重传机制</a>
-    </h1>
-  
-
-        
-        <a href="/2022/11/15/Tcp%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2022-11-15T01:10:02.430Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-15</time>
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2023" class="archive-year">2023</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2023/05/23/%E6%88%90%E9%83%BD%E6%97%85%E6%B8%B8/" class="archive-article-date">
+  	<time datetime="2023-05-23T09:20:50.837Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-05-23</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="Tcp重传机制"><a href="#Tcp重传机制" class="headerlink" title="Tcp重传机制"></a>Tcp重传机制</h1><h2 id="1：为什么确认重传的时候判定是三次重复的ACK"><a href="#1：为什么确认重传的时候判定是三次重复的ACK" class="headerlink" title="1：为什么确认重传的时候判定是三次重复的ACK"></a>1：为什么确认重传的时候判定是三次重复的ACK</h2><p>​    可以考虑的时候对于Tcp这种面向链接的可靠传输层协议，对于丢包这类事情如果发现应该尽早处理</p>
-<p>​    第二就是采用这种机制的情况一定是无序传输，如果有序传输那么一次发现跳过了包则可以确定丢包重传了。</p>
-<p>​    </p>
-<p>所以在无序传输的情况下，如果发生一次ACK，则可以认定是正常情况，在第二次就得到了想要的包。</p>
-<p>而两次极大概率不是，因为无序传输，发生乱序的情况非常多见。一次顺序的改变就会导致重传则会导致网络负载的极大增加，且不符合分组发送的机制，如果两次不符就要重传，则和有序的情况没有区别。</p>
-<p>连续三次同样的ACK导致重传一方面是考虑到了乱序发送的概率问题，另一方面也契合乱序发送的机制（和有序发送不同），提高了网络的效率。而TCP作为可靠的传输层协议，不宜跳过多个包在进行重传。</p>
-<h2 id="2：流控制"><a href="#2：流控制" class="headerlink" title="2：流控制"></a>2：流控制</h2><p>对于服务端而言，在接受一个发送端的过程中可能由于各种情况，导致接受速度较慢，而这种差异过大就会导致包的多次重传，无端浪费网络资源。所以要想办法协调发送端和接收端的速度。</p>
-<p>TCP提供了方法是，TCP首部中串门有一个字段用来通知窗口的大小。</p>
-<p>当发生丢包重传的时候，发送端就会像接收端发送一个窗口探测包。接收端回送一个包作为窗口更新通知</p>
-<p>如果这个窗口更新通知没有送到，可能会导致无法通信，所以发送端会时不时的发送窗口探测包用来更新窗口大小。</p>
-<h2 id="2：拥塞控制"><a href="#2：拥塞控制" class="headerlink" title="2：拥塞控制"></a>2：拥塞控制</h2><p>拥塞窗口的控制，一般是通过开始的慢启动和超时后的快启动来做的。</p>
-<p><img src="https://img-blog.csdnimg.cn/20190731184935595.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNDMxNDA2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        </div>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/11/15/Tcp%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-Linux配置按章Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/">Linux配置按章Nginx</a>
-    </h1>
-  
-
-        
-        <a href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/" class="archive-article-date">
-  	<time datetime="2022-11-15T01:10:02.424Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="Linux配置按章Nginx"><a href="#Linux配置按章Nginx" class="headerlink" title="Linux配置按章Nginx"></a>Linux配置按章Nginx</h1><h3 id="1-使用yum下载相关依赖包"><a href="#1-使用yum下载相关依赖包" class="headerlink" title="1.使用yum下载相关依赖包"></a>1.使用yum下载相关依赖包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//一键安装上面四个依赖</span><br><span class="line">yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.13.7.tar.gz</span><br><span class="line">tar -xvf nginx-1.13.7.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//进入目录</span><br><span class="line">cd nginx-1.13.7</span><br><span class="line">//执行命令 考虑到后续安装ssl证书 添加两个模块</span><br><span class="line">./configure --with-http_stub_status_module --with-http_ssl_module</span><br><span class="line">//执行make命令</span><br><span class="line">make</span><br><span class="line">//执行make install命令</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-启动Nginx服务"><a href="#4-启动Nginx服务" class="headerlink" title="4.启动Nginx服务"></a>4.启动Nginx服务</h3><p>默认安装的nginx是在/usr/local下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-修改配置文件，设置端口为8089（默认为80，和Apache的冲突）"><a href="#5-修改配置文件，设置端口为8089（默认为80，和Apache的冲突）" class="headerlink" title="5.修改配置文件，设置端口为8089（默认为80，和Apache的冲突）"></a>5.修改配置文件，设置端口为8089（默认为80，和Apache的冲突）</h3><h3 id="6-重启"><a href="#6-重启" class="headerlink" title="6.重启"></a>6.重启</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-打开防火墙端口"><a href="#7-打开防火墙端口" class="headerlink" title="7.打开防火墙端口"></a>7.打开防火墙端口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看已经开放的端口</span><br><span class="line">firewall-cmd --list-ports</span><br><span class="line">//增加端口</span><br><span class="line">firewall-cmd --zone=public --add-port=8089/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/11/15/Linux%E9%85%8D%E7%BD%AE%E6%8C%89%E7%AB%A0Nginx/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux安装mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/11/15/Linux%E5%AE%89%E8%A3%85mysql/">Linux安装mysql</a>
-    </h1>
-  
-
-        
-        <a href="/2022/11/15/Linux%E5%AE%89%E8%A3%85mysql/" class="archive-article-date">
-  	<time datetime="2022-11-15T01:10:02.421Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>[TOC]</p>
-<h1 id="Linux安装mysql"><a href="#Linux安装mysql" class="headerlink" title="Linux安装mysql"></a>Linux安装mysql</h1><h2 id="1-安装wget"><a href="#1-安装wget" class="headerlink" title="1.安装wget"></a>1.安装wget</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-下载yum源安装包"><a href="#2-下载yum源安装包" class="headerlink" title="2.下载yum源安装包"></a>2.下载yum源安装包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://repo.mysql.com/mysql57-community-release-el7.rpm</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-安装下载好的rpm"><a href="#3-安装下载好的rpm" class="headerlink" title="3.安装下载好的rpm"></a>3.安装下载好的rpm</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql57-community-release-el7.rpm</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-安装mysql"><a href="#4-安装mysql" class="headerlink" title="4.安装mysql"></a>4.安装mysql</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-server</span><br></pre></td></tr></table></figure>
-
-<p>中间可能会报公钥没有安装的错误</p>
-<p>使用如下命令即可</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022</span><br><span class="line">yum install mysql-server</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="5-启动mysql"><a href="#5-启动mysql" class="headerlink" title="5.启动mysql"></a>5.启动mysql</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-初始化（获得初始密码，并修改密码）"><a href="#6-初始化（获得初始密码，并修改密码）" class="headerlink" title="6.初始化（获得初始密码，并修改密码）"></a>6.初始化（获得初始密码，并修改密码）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grep &#x27;temporary password&#x27; /var/log/mysqld.log	//获得密码</span><br><span class="line"></span><br><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
-
-<p>因为初始的权限很复杂</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#x27;validate_password%&#x27;</span><br><span class="line">0 or LOW     只验证长度</span><br><span class="line">1 or MEDIUM  验证长度、数字、大小写、特殊字符</span><br><span class="line">2 or STRONG  验证长度、数字、大小写、特殊字符、字典文件</span><br></pre></td></tr></table></figure>
-
-<p>所以先登录进mysql修改密码安全设置</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set global validate_password_policy=0;</span><br><span class="line">set global validate_password_length=1;</span><br></pre></td></tr></table></figure>
-
-<p>这时候修改密码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;admin&#x27;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="7-设置开机自启动"><a href="#7-设置开机自启动" class="headerlink" title="7.设置开机自启动"></a>7.设置开机自启动</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable mysqld</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-打开防火墙的端口"><a href="#8-打开防火墙的端口" class="headerlink" title="8.打开防火墙的端口"></a>8.打开防火墙的端口</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看已经开放的端口</span><br><span class="line">firewall-cmd --list-ports</span><br><span class="line">//增加端口</span><br><span class="line">firewall-cmd --zone=public --add-port=3306/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-
-<h2 id="9-登录进mysql后修改权限-即可远程访问"><a href="#9-登录进mysql后修改权限-即可远程访问" class="headerlink" title="9.登录进mysql后修改权限,即可远程访问"></a>9.登录进mysql后修改权限,即可远程访问</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql -r root -p</span><br><span class="line">//输入密码即可</span><br><span class="line">use mysql</span><br><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;;</span><br><span class="line">systemctl stop mysqld;</span><br><span class="line">systemctl start mysqld;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/11/15/Linux%E5%AE%89%E8%A3%85mysql/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-创建一个个人数字图书馆" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/07/%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E6%95%B0%E5%AD%97%E5%9B%BE%E4%B9%A6%E9%A6%86/">创建一个个人数字图书馆</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/07/%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E6%95%B0%E5%AD%97%E5%9B%BE%E4%B9%A6%E9%A6%86/" class="archive-article-date">
-  	<time datetime="2022-10-07T07:01:36.630Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="创建一个个人数字图书馆"><a href="#创建一个个人数字图书馆" class="headerlink" title="创建一个个人数字图书馆"></a>创建一个个人数字图书馆</h2><h4 id="1-使用购买的服务器，并做好配置-这里使用CentOs操作系统"><a href="#1-使用购买的服务器，并做好配置-这里使用CentOs操作系统" class="headerlink" title="1.使用购买的服务器，并做好配置,这里使用CentOs操作系统"></a>1.使用购买的服务器，并做好配置,这里使用CentOs操作系统</h4><p>​    由于默认的yum下载镜像在国外，速度较慢，所以可以使用国内的镜像源</p>
-<p>​    选择下面一个镜像使用</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//官方源地址（比较慢）</span><br><span class="line">$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">//阿里云</span><br><span class="line">$ sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">//清华大学源 </span><br><span class="line">$ sudo yum-config-manager --add-repo https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-使用命令下载docker-ce"><a href="#2-使用命令下载docker-ce" class="headerlink" title="2.使用命令下载docker-ce"></a>2.使用命令下载docker-ce</h4><p>​    这里需要注意的是cent8.0以上的版本安装docker时候，如果直接使用下面这个命令,系统会默认为下载的是podman—docker,在之后的启动中会报错：</p>
-<p>​            Failed to start docker.service: Unit docker.service not found</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--之前下载错误的可以先使用这一条名将旧版的docker删除--&gt;</span></span><br><span class="line">dnf remove podman</span><br><span class="line"></span><br><span class="line">yum install docker</span><br></pre></td></tr></table></figure>
-
-
-
-<p>所以要安装docker-ce才行,使用如下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="3-挑选个人图书馆的镜像文件"><a href="#3-挑选个人图书馆的镜像文件" class="headerlink" title="3.挑选个人图书馆的镜像文件"></a>3.挑选个人图书馆的镜像文件</h4><p>这里使用calibre-web的johngong/calibre-web版本</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--使用search搜索可用镜像--&gt;</span></span><br><span class="line">docker search calibre-web</span><br><span class="line"><span class="comment">&lt;!--拉去一个版本--&gt;</span></span><br><span class="line">docker pull johngong/calibre-web</span><br><span class="line"><span class="comment">&lt;!--查看是否下载成功--&gt;</span></span><br><span class="line">docker images</span><br><span class="line"><span class="comment">&lt;!--后台启动docker容器--&gt;</span></span><br><span class="line">docker run -d \</span><br><span class="line"><span class="comment">&lt;!--给容器取名字--&gt;</span></span><br><span class="line">--name=my-library \</span><br><span class="line"><span class="comment">&lt;!--将容器内部的8083端口映射到外部的80端口上，就可以直接通过服务器的80端口访问--&gt;</span></span><br><span class="line">-p 80:8083 \</span><br><span class="line"><span class="comment">&lt;!--做两个地址应声，第一个是配置文件位置，映射到容器内部的config目录--&gt;</span></span><br><span class="line">-v /root/library/calibre/config:/config \</span><br><span class="line"><span class="comment">&lt;!--将书库位置library映射到外部的library目录--&gt;</span></span><br><span class="line">-v /root/library/calibre/library:/library \</span><br><span class="line"><span class="comment">&lt;!--最后使用镜像--&gt;</span></span><br><span class="line">johngong/calibre-web</span><br><span class="line"><span class="comment">&lt;!--使用ps命令查看docker进程状态--&gt;</span></span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
-
-<h4 id="4：可以通过服务器的公网ip加上80端口进行访问"><a href="#4：可以通过服务器的公网ip加上80端口进行访问" class="headerlink" title="4：可以通过服务器的公网ip加上80端口进行访问"></a>4：可以通过服务器的公网ip加上80端口进行访问</h4><p>​    初始账号为admin密码为admin123</p>
-<p>​    在登录成功后可以更改设置</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/07/%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E6%95%B0%E5%AD%97%E5%9B%BE%E4%B9%A6%E9%A6%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-简单搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/07/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">简单搭建个人博客</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/07/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2022-10-07T02:32:24.596Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简单搭建个人博客"><a href="#简单搭建个人博客" class="headerlink" title="简单搭建个人博客"></a>简单搭建个人博客</h2><h4 id="1：下载node-js到本机上"><a href="#1：下载node-js到本机上" class="headerlink" title="1：下载node.js到本机上"></a>1：下载node.js到本机上</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://nodejs.org/en/</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-下载镜像"><a href="#2-下载镜像" class="headerlink" title="2:    下载镜像"></a>2:    下载镜像</h4><p>​    可以直接使用npm进行下载但是，npm是国外镜像下载速度很慢，所以可以先下载cnpm使用淘宝镜像进行下载</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--安装淘宝的cnpm 管理器--&gt;</span></span><br><span class="line">npm install -g cnpm --registry=http://registry.npm.taobao.org</span><br><span class="line"><span class="comment">&lt;!--在本机安装hexo的镜像--&gt;</span></span><br><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-创建一个blog文件并进行hexo的初始化"><a href="#3-创建一个blog文件并进行hexo的初始化" class="headerlink" title="3.创建一个blog文件并进行hexo的初始化"></a>3.创建一个blog文件并进行hexo的初始化</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--hexo的初始化--&gt;</span></span><br><span class="line">hexo init</span><br><span class="line"><span class="comment">&lt;!--在本地启动hexo检查--&gt;</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-部署到远端（这里使用github仓库进行代码管理）"><a href="#4-部署到远端（这里使用github仓库进行代码管理）" class="headerlink" title="4.部署到远端（这里使用github仓库进行代码管理）"></a>4.部署到远端（这里使用github仓库进行代码管理）</h4><p>​    首先在github中创建一个仓库，仓库名为自己  用户名.github.io</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--在配置文件_config.yml中修改相关配置,在最后一行中更改--&gt;</span></span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/FoxJia007/FoxJia007.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line"><span class="comment">&lt;!--将hexo部署到远端--&gt;</span></span><br><span class="line">hexo d</span><br><span class="line"><span class="comment">&lt;!--使用 用户名.github.io 在浏览器中直接访问即可访问到个人博客--&gt;</span></span><br><span class="line">https://foxjia007.github.io/</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-挑选自己喜欢的主题，这里使用yilia主题"><a href="#5-挑选自己喜欢的主题，这里使用yilia主题" class="headerlink" title="5.挑选自己喜欢的主题，这里使用yilia主题"></a>5.挑选自己喜欢的主题，这里使用yilia主题</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--网址如下--&gt;</span></span><br><span class="line">https://github.com/litten/hexo-theme-yilia</span><br><span class="line"><span class="comment">&lt;!--在blog文件中使用如下命令进行主题的克隆--&gt;</span></span><br><span class="line">git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br><span class="line"><span class="comment">&lt;!--在配置文件中更改相关配置即可使用--&gt;</span></span><br><span class="line">theme: yilia</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/07/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/07/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/07/hello-world/" class="archive-article-date">
-  	<time datetime="2022-10-07T01:53:21.804Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/07/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -664,9 +212,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

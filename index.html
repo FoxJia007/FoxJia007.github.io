@@ -156,55 +156,40 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-成都旅游" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-设计模式杂谈" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="成都旅游"><a href="#成都旅游" class="headerlink" title="成都旅游"></a>成都旅游</h1><h2 id="住宿-5-25-——5-28"><a href="#住宿-5-25-——5-28" class="headerlink" title="住宿  5.25 ——5.28"></a>住宿  5.25 ——5.28</h2><p>暂定 春熙路酒店 如家酒店 距春熙路1公里</p>
-<h2 id="Day0"><a href="#Day0" class="headerlink" title="Day0"></a>Day0</h2><p>可以晚上可以先去春熙路步行街逛街。</p>
-<h2 id="Day1"><a href="#Day1" class="headerlink" title="Day1"></a>Day1</h2><p><strong>白天：</strong>都江堰，青城山。</p>
-<p>​        ——————————————</p>
-<p>​        （打车到安靖站，坐火车到离堆公园站，走路到都江堰景区。</p>
-<p>​        火车时间10点半——11点</p>
-<p>​        乘坐观光车游玩）</p>
-<p>​        ——————————————</p>
-<p>​        做公交车都江堰101路到青城山。游玩青城山</p>
-<p>​        晚上做火车去锦里</p>
-<p>​        ——————————————</p>
-<p><strong>晚上：</strong>锦里，如果回来的早可以去武侯祠</p>
-<h2 id="Day2"><a href="#Day2" class="headerlink" title="Day2"></a>Day2</h2><p><strong>上午</strong> ：成都博物馆，人民公园（采耳，喝茶看川剧），青羊宫</p>
-<p>——————————</p>
-<ul>
-<li><p>坐地铁到博物馆</p>
-</li>
-<li><p>步行到人民公园</p>
-</li>
-<li><p>坐地铁到青羊宫</p>
-</li>
-</ul>
-<p><strong>下午</strong> ：杜甫草堂，宽窄巷子</p>
-<ul>
-<li>先吃饭然后走路到草堂。</li>
-<li>做地铁到宽窄巷子</li>
-</ul>
-<p><strong>晚上</strong> ：奎星楼</p>
-<ul>
-<li>步行到奎星楼</li>
-</ul>
-<h2 id="Day3"><a href="#Day3" class="headerlink" title="Day3"></a>Day3</h2><p><strong>上午：</strong>去熊猫基地成都动物园</p>
-<ul>
-<li>坐地铁到成都东站30分钟，坐火车</li>
-</ul>
-<p><strong>下午：</strong>去太古里春熙路</p>
-<ul>
-<li>坐地铁</li>
-</ul>
-<p><strong>晚上：</strong>九眼桥喝酒</p>
-<ul>
-<li>坐地铁</li>
-</ul>
-<h2 id="Day4"><a href="#Day4" class="headerlink" title="Day4"></a>Day4</h2>
+        <h1 id="设计模式杂谈"><a href="#设计模式杂谈" class="headerlink" title="设计模式杂谈"></a>设计模式杂谈</h1><h2 id="1-单例模式："><a href="#1-单例模式：" class="headerlink" title="1.单例模式："></a>1.单例模式：</h2><p>即通过设置静态实例和静态方法代替构造函数（将构造函数设置为私有）</p>
+<p>使得所有使用到该类只能使用同一实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> d1;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Singleton</span> <span class="variable">singleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line"><span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">instance</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-工厂模式"><a href="#2-工厂模式" class="headerlink" title="2.工厂模式"></a>2.工厂模式</h2><p>设置工厂类用来创造相关实例，使得一部分相似结构的类实现同一接口。</p>
+<p>在工厂类生成实例时根据名称等信息，利用选择，反射等方式生成相应的类。</p>
+<h2 id="3-生成器模式"><a href="#3-生成器模式" class="headerlink" title="3.生成器模式"></a>3.生成器模式</h2><p>当一个类的构造函数需要很多的参数的时候，对不同输入参数的情景需要设计不同的构造函数。</p>
+<p>非常麻烦且易出错，这时候采用生成器模式。</p>
+<p>最终效果如代码所示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text1</span> <span class="variable">text1</span> <span class="operator">=</span> Text1.builder().setD1(<span class="number">1</span>).setD2(<span class="number">3</span>).build();</span><br></pre></td></tr></table></figure>
+
+<p>静态内部类构造如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Build</span>&#123;</span><br><span class="line">    <span class="comment">//参数列表与主类中一致</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">d1</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">d2</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">d3</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Text1 <span class="title function_">build</span><span class="params">()</span>&#123;<span class="comment">//参数初始化完成后返回主类</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Text1</span>(d1,d2,d3,d4,d5);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//各个参数初始化方法，返回仍未当前静态内部类builde</span></span><br><span class="line">    <span class="keyword">public</span> Build <span class="title function_">setD1</span><span class="params">(<span class="type">int</span> d1)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.d1 = d1;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Build <span class="title function_">setD2</span><span class="params">(<span class="type">int</span> d2)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.d2 = d2;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Build <span class="title function_">setD3</span><span class="params">(<span class="type">int</span> d3)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.d3 = d3;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同样的，在主类中也需要构建静态方法与全参数的构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Build <span class="title function_">builder</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Build</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Text1</span><span class="params">(<span class="type">int</span> d1, <span class="type">int</span> d2, <span class="type">int</span> d3, <span class="type">int</span> d4, <span class="type">int</span> d5)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.d1 = d1;</span><br><span class="line">        <span class="built_in">this</span>.d2 = d2;</span><br><span class="line">        <span class="built_in">this</span>.d3 = d3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-适配器模式"><a href="#4-适配器模式" class="headerlink" title="4.适配器模式"></a>4.适配器模式</h2><p>因为A与B不适配，例如碗和食物，碗需要煮熟的食物。</p>
+<p>则可以在Bawl和Food中加一个适配器Adaptor，其中包含Food类和cook方法。</p>
+<h2 id="5-代理模式"><a href="#5-代理模式" class="headerlink" title="5.代理模式"></a>5.代理模式</h2><p>增加一个“中间者”来帮助我们控制对某对象的访问。</p>
+<p>例如构造冰箱类代理类，（题外话在spring中可通过注解的方式制作代理，</p>
+<p>且非常灵活，调用前，调用后都可以，要熟练使用，可以不修改原来代码就添加新功能且提高代码效率）</p>
+<h2 id="6-责任链模式"><a href="#6-责任链模式" class="headerlink" title="6.责任链模式"></a>6.责任链模式</h2><p>通常，当一个类调用很多其他的方法，而又需要复用其中的一部分代码时，就非常困难。</p>
+<p>这时候，可以将这些方法都封装成类，然后继承同一链抽象类，创造一个责任链，将所需要的方法加入进来，然后依次调用即可。</p>
+<h2 id="7-策略模式"><a href="#7-策略模式" class="headerlink" title="7.策略模式"></a>7.策略模式</h2><p>剥离特定算法实现和调用逻辑，运行时动态匹配。</p>
+<p>举例，在调用计数方法时，因为计数有不同方式，将这两个方式都封装成类，继承自同一strategy类，然后感觉用户传来的类型区分是使用哪一种策略。</p>
+<h2 id="8-迭代器模式"><a href="#8-迭代器模式" class="headerlink" title="8.迭代器模式"></a>8.迭代器模式</h2><p>即通常理解上的对某一集合的遍历。</p>
+<p>这里需要做两个动作，一个是需要实现Iterable接口，然后重写Interator方法。</p>
+
       
 
       
@@ -216,7 +201,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/05/23/%E6%88%90%E9%83%BD%E6%97%85%E6%B8%B8/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/06/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%9D%82%E8%B0%88/">展开全文 >></a>
         </p>
       
 
